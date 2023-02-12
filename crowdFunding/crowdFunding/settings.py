@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'indexapp.apps.IndexappConfig',
     'projectsapp.apps.ProjectsappConfig',
-
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'crowdFunding.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':  'crowd_founding',
+        'NAME':  'crowd_founding1',
         'USER': 'postgres' ,
         'PASSWORD':  POSTGRES_PASSWORD,
         'HOST':  '127.0.0.1',
