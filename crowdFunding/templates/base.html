@@ -45,5 +45,37 @@
 
         <!-- Template Javascript -->
         <script src="{% static 'js/main.js' %}"></script>
+        <script>
+        mydate.min = new Date().toISOString().split("T")[0];
+        endmydate.min = new Date().toISOString().split("T")[0];
+
+<!--            var mydate = document.getElementById('mydate'),-->
+<!--            mydateError = document.getElementById('mydate_error');-->
+<!--            mydate.addEventListener('input', function() {-->
+<!--                if (!mydate.value.match(/\d{4}-\d{1,2}-\d{1,2}/)) {-->
+<!--                    mydateError.innerHTML = 'Please specify a valid date in the form 1990-02-22';-->
+<!--                    mydateError.style.display = 'inherit';-->
+<!--                } else {-->
+<!--                    var value = new Date(mydate.value);-->
+<!--                    let currentDate = new Date().toJSON().slice(0, 10);-->
+<!--                     var min = currentDate;-->
+<!--                     var current = new Date();-->
+<!--                     var followingDay = new Date(current.getTime() + 86400000); // + 1 day in ms-->
+<!--                     var max = followingDay.toLocaleDateString();-->
+<!--                     console.log("value "+ value)-->
+<!--                     console.log("Min "+ min)-->
+<!--                     console.log("current "+current)-->
+<!--                     console.log("Max "+max)-->
+<!--                    if (value < min || value > max) {-->
+<!--                        console.log("IF")-->
+<!--                        mydateError.innerHTML = 'Date has to be between ' + min + ' and ' + max;-->
+<!--                        mydateError.style.display = 'inherit';-->
+<!--                    } else {-->
+<!--                         console.log("Else")-->
+<!--                        mydateError.style.display = 'none';-->
+<!--                    }-->
+<!--                }-->
+<!--            });-->
+        </script>
 </body>
 </html>
