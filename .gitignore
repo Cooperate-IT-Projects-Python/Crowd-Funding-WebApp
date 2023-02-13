@@ -7,7 +7,9 @@ __pycache__/
 *.so
 
 .idea/workspace.xml
+.idea/
 .idea
+workspace.xml
 
 # Distribution / packaging
 .Python
