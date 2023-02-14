@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block title %}
 <title>Create Project</title>
 {% endblock title %}
@@ -51,31 +52,39 @@
                         <!--                                Start -->
                         <label for="mydate">Start Date</label>
                         <div class="control-group">
-                            <input id="mydate" type="date"  class="form-control" placeholder="total Target"
+                            <input id="mydate" type="date" class="form-control" placeholder="total Target"
                                    name="start" required="required"/>
                             <span id="mydate_error" style="display:none;"> You should enter The  Current Date   </span>
                         </div>
-                                                <!--                                End-->
+                        <!--                                End-->
                         <label for="endmydate">End Date</label>
                         <div class="control-group">
-                            <input id="endmydate" type="date"  class="form-control"
+                            <input id="endmydate" type="date" class="form-control"
                                    name="end" required="required"/>
-                            <span id="endmydate_error" style="display:none;"> You should enter The  Current Date   </span>
+                            <span id="endmydate_error"
+                                  style="display:none;"> You should enter The  Current Date   </span>
                         </div>
-                          <label for="Category">Choose a Category:</label>
-                          <select name="category" id="Category">
-                              {% for cat in categories %}
-                                  <option value="{{cat}}">{{cat}}</option>
-                              {% endfor %}
-                          </select>
-                          <label for="images">Select Images:</label>
+                        <label for="Category">Choose a Category:</label>
+                        <select name="category" id="Category">
+                            {% for cat in categories %}
+                            <option value="{{cat}}">{{cat}}</option>
+                            {% endfor %}
+                        </select>
 
-                          <input type="file" id="images" name="images" multiple>
+                        <br>
+                        <label class="form-label" for="images">Select Images:</label>
+                        <input class="form-control" type="file" id="images" name="images" multiple>
+                        <br>
+
+                        <label class="form-label" for="mainImage">Select The Main Image:</label>
+                        <input class="form-control" type="file" id="mainImage" name="mainImage">
+                        <br>
+
                         <div>
                             <button class="btn btn-custom" type="submit">Create Project</button>
                         </div>
                         {% if error %}
-                            <span style="color:red"> {{error}}</span>
+                        <span style="color:red"> {{error}}</span>
                         {%endif%}
                     </form>
                 </div>

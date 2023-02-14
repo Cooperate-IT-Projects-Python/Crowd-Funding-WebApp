@@ -2,11 +2,31 @@
 {% load static %}
 
 {% block title %}
-  <title>Crowd-Funding-WebAPP</title>
+<title>Crowd-Funding-WebAPP</title>
 {% endblock title %}
 
 {% block content %}
+<style>
+        .rating-list li {
+          float: right;
+          color: #ddd;
+          padding: 10px 5px;
+        }
 
+        .rating-list li:hover,
+        .rating-list li:hover ~ li {
+          color: orange;
+        }
+
+        .rating-list {
+          display: inline-block;
+          list-style: none;
+        }
+        .checked {
+            color: orange;
+        }
+
+</style>
 <!-- Carousel Start -->
 <div class="carousel">
     <div class="container-fluid">
@@ -346,121 +366,71 @@
 
 
         <p style="margin-top: 10px;">Newest Projects</p>
-
         <div class="owl-carousel causes-carousel">
+            {% for project in projects %}
             <div class="causes-item">
                 <div class="causes-img">
                     <a href="single.html">
-                        <img src="{% static 'img/causes-1.jpg' %}" alt="Image">
+                        <img src="{{ project.main_Image.url }}" alt="Project image Image">
                     </a>
                 </div>
                 <div class="causes-progress">
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0"
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{project.goal_percentage}}"
+                             aria-valuemin="0"
                              aria-valuemax="100">
-                            <span>85%</span>
+                            <span> {{project.goal_percentage}}% </span>
                         </div>
                     </div>
                     <div class="progress-text">
-                        <p><strong>Raised:</strong> $100000</p>
-                        <p><strong>Goal:</strong> $50000</p>
+                        <p><strong>Raised:</strong> {{project.current_donation}} </p>
+                        <p><strong>Goal:</strong> {{project.total_target}} </p>
                     </div>
                 </div>
                 <div class="causes-text">
-                    <h3>Lorem ipsum dolor sit</h3>
-                    <p>Lorem ipsum dolor sit amet elit. Phasell nec pretium mi. Curabit facilis ornare velit non
-                        vulputa</p>
+                    <h3> {{project.title}} </h3>
+                    <p>{{project.details}}</p>
                 </div>
+                <br>
+                <!--                    Average Rating-->
+                <h5 class="causes-text">Avg rating:
+                    <span class="fa fa-star {% if project.average_rating > 0 %} checked {% endif %}"></span>
+                    <span class="fa fa-star {% if project.average_rating > 1 %} checked {% endif %}"></span>
+                    <span class="fa fa-star {% if project.average_rating > 2 %} checked {% endif %}"></span>
+                    <span class="fa fa-star {% if project.average_rating > 3 %} checked {% endif %}"></span>
+                    <span class="fa fa-star {% if project.average_rating > 4 %} checked {% endif %}"></span>
+                </h5>
+                <!--                    End Average Rating-->
+                <!--                    End User Rating-->
+                <ul class="btn btn-light list-inline rating-list">
+                    <li onclick="rate(5, {{ project.id }})">
+                        <i class="fa fa-star {% if project.user_rating > 4 %} checked {% endif %}" title="Rate 5"></i>
+                    </li>
+                    <li onclick="rate(4, {{ project.id }})">
+                        <i class="fa fa-star {% if project.user_rating > 3 %} checked {% endif %}" title="Rate 4"></i>
+                    </li>
+                    <li onclick="rate(3, {{ project.id }})">
+                        <i class="fa fa-star {% if project.user_rating > 2 %} checked {% endif %}" title="Rate 3"></i>
+                    </li>
+                    <li onclick="rate(2, {{ project.id }})">
+                        <i class="fa fa-star {% if project.user_rating > 1 %} checked {% endif %}" title="Rate 2"></i>
+                    </li>
+                    <li onclick="rate(1, {{ project.id }})">
+                        <i class="fa fa-star {% if project.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i>
+                    </li>
+                </ul>
+
+                <!--                    End User Rating-->
+                <!--                    Comments-->
                 <div class="blog-meta">
                     <p style="margin-left: 5px;"><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
                 </div>
                 <div class="causes-btn">
                     <a class="btn btn-custom" href="report.html">Report</a>
-                    <a class="btn btn-custom" href="donate.html">Donate Now</a>
+                    <a class="btn btn-custom" href="{% url 'makeDonation' project.id %}">Donate Now</a>
                 </div>
             </div>
-            <div class="causes-item">
-                <div class="causes-img">
-                    <a href="single.html">
-                        <img src="{% static 'img/causes-2.jpg' %}" alt="Image">
-                    </a>
-                </div>
-                <div class="causes-progress">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0"
-                             aria-valuemax="100">
-                            <span>85%</span>
-                        </div>
-                    </div>
-                    <div class="progress-text">
-                        <p><strong>Raised:</strong> $100000</p>
-                        <p><strong>Goal:</strong> $50000</p>
-                    </div>
-                </div>
-                <div class="causes-text">
-                    <h3>Lorem ipsum dolor sit</h3>
-                    <p>Lorem ipsum dolor sit amet elit. Phasell nec pretium mi. Curabit facilis ornare velit non
-                        vulputa</p>
-                </div>
-                <div class="causes-btn">
-                    <a class="btn btn-custom" href="report.html">Report</a>
-                    <a class="btn btn-custom" href="donate.html">Donate Now</a>
-                </div>
-            </div>
-            <div class="causes-item">
-                <div class="causes-img">
-                    <a href="single.html">
-                        <img src="{% static 'img/causes-3.jpg' %}" alt="Image">
-                    </a>
-                </div>
-                <div class="causes-progress">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0"
-                             aria-valuemax="100">
-                            <span>85%</span>
-                        </div>
-                    </div>
-                    <div class="progress-text">
-                        <p><strong>Raised:</strong> $100000</p>
-                        <p><strong>Goal:</strong> $50000</p>
-                    </div>
-                </div>
-                <div class="causes-text">
-                    <h3>Lorem ipsum dolor sit</h3>
-                    <p>Lorem ipsum dolor sit amet elit. Phasell nec pretium mi. Curabit facilis ornare velit non
-                        vulputa</p>
-                </div>
-                <div class="causes-btn">
-                    <a class="btn btn-custom" href="report.html">Report</a>
-                    <a class="btn btn-custom" href="donate.html">Donate Now</a>
-                </div>
-            </div>
-            <div class="causes-item">
-                <div class="causes-img">
-                    <img src="{% static 'img/causes-4.jpg' %}" alt="Image">
-                </div>
-                <div class="causes-progress">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0"
-                             aria-valuemax="100">
-                            <span>85%</span>
-                        </div>
-                    </div>
-                    <div class="progress-text">
-                        <p><strong>Raised:</strong> $100000</p>
-                        <p><strong>Goal:</strong> $50000</p>
-                    </div>
-                </div>
-                <div class="causes-text">
-                    <h3>Lorem ipsum dolor sit</h3>
-                    <p>Lorem ipsum dolor sit amet elit. Phasell nec pretium mi. Curabit facilis ornare velit non
-                        vulputa</p>
-                </div>
-                <div class="causes-btn">
-                    <a class="btn btn-custom" href="report.html">Report</a>
-                    <a class="btn btn-custom" href="donate.html">Donate Now</a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
 
 
@@ -595,5 +565,19 @@
 <div id="loader" class="show">
     <div class="loader"></div>
 </div>
+<!--Rating SCript-->
+<script>
+        const rate = (rating, project_id) => {
+            fetch(`/rate/${project_id}/${rating}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(rest => {
+                window.location.reload();
+            })
+        }
+
+</script>
 {% endblock content %}
 
