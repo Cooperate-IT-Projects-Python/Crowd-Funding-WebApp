@@ -7,4 +7,6 @@ urlpatterns = [
     path('edit_user_profile/', views.edit_user_profile, name='edit_user_profile'),
     path('delete_user_profile/', views.delete_user_profile, name='delete_user_profile'),
     path('user_profile/', views.user_profile, name='user_profile'),
+
 ]
+handler404 = 'indexapp.views.handler404'

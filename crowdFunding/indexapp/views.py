@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from projectsapp.models import Project, ProjectRating
 from users.models import CustomUser
+from django.core.exceptions import ValidationError
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -47,6 +48,8 @@ def user_profile(request):
     }
     return render(request, 'user_profile.html', context)
 
+
+
 @login_required
 def edit_user_profile(request):
     if request.method == 'POST':
@@ -54,7 +57,11 @@ def edit_user_profile(request):
         user.first_name = request.POST['first_name']
         user.last_name = request.POST['last_name']
         user.mobile = request.POST['mobile']
-        user.birthday = request.POST['birthday']
+        try:
+            user.birthday = request.POST['birthday']
+        except ValidationError:
+            messages.error(request, 'Invalid date format. Please enter the date in the format YYYY-MM-DD.')
+            return redirect('edit_user_profile')
         user.country = request.POST['country']
         user.facebook_profile = request.POST['facebook_profile']
         user.save()
@@ -81,3 +88,5 @@ def delete_user_profile(request):
             return redirect('delete_user_profile')
     else:
         return render(request, 'delete_user_profile.html')
+def handler404(request, exception):
+    return render(request, '404.html', status=404)

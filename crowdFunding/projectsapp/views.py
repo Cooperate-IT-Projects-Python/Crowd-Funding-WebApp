@@ -60,3 +60,5 @@ def make_donation(r, project_id):
     project = Project.objects.get(id=project_id)
     max_donation_value = (project.total_target - project.current_donation )
     return render(r, 'donate.html', {'max_donation_value': max_donation_value, 'project_title': project.title})
+def account(request):
+    return render(request, 'user_profile.html')
