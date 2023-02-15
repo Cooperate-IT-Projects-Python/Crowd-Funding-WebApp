@@ -15,6 +15,12 @@ import os
 from dotenv import load_dotenv
 load_dotenv()  # loads the configs from .env
 POSTGRES_PASSWORD = str(os.getenv('POSTGRES_PASSWORD'))
+HOST_EMAIL = str(os.getenv('HOST_EMAIL'))
+HOST_APP_PASS = str(os.getenv('HOST_APP_PASS'))
+SOCIAL_AUTH_FACEBOOK_KEY= str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))
+SOCIAL_AUTH_FACEBOOK_SECRET = str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,8 +48,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'indexapp.apps.IndexappConfig',
     'projectsapp.apps.ProjectsappConfig',
-     'users.apps.UsersConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',#bootstrap forms
+    'social_django',#socialAuth 
+    'sslserver',#https server
+
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',#socialAuth 
 ]
 
 ROOT_URLCONF = 'crowdFunding.urls'
@@ -68,6 +80,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',#socialAuth 
+                'social_django.context_processors.login_redirect',#socialAuth 
             ],
         },
     },
@@ -139,3 +153,34 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
+
+
+# Emailing settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = HOST_EMAIL
+EMAIL_HOST_USER = HOST_EMAIL
+EMAIL_HOST_PASSWORD = HOST_APP_PASS 
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+PASSWORD_RESET_TIMEOUT = 14400
+
+# Authentication settings
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_FACEBOOK_KEY = SOCIAL_AUTH_FACEBOOK_KEY  
+SOCIAL_AUTH_FACEBOOK_SECRET = SOCIAL_AUTH_FACEBOOK_SECRET  
+
+
+
+

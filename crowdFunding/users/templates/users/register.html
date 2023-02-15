@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+
+
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join Today</legend>
+                {{ form|crispy }}
+            </fieldset>
+
+            By registering, you accept the Terms of Service and Privacy Notice
+
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            </div>
+        </form>
+
+            <a href="{% url 'social:begin' 'facebook' %}" class="fb btn">
+                <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+            </a>
+
+
+
+        </div>
+        <small class="text-muted">
+            Already Have An Account? <a class="ml-2" href="/login">Sign In</a>
+        </small>
+
+    </div>
+{% endblock content %}
