@@ -106,3 +106,10 @@ class ProjectRating(models.Model):
 
     def __str__(self):
         return f"rating {self.rating} on {self.ProjectId.title} by {self.owner_id} "
+
+
+class sample(models.Model):
+    name = models.CharField(max_length=10, unique=True)
+
+    def __str__(self):
+        return self.name
