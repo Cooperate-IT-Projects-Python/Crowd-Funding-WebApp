@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME':  'crowd_founding',
         'USER': 'postgres' ,
-        'PASSWORD':  'POSTGRES_PASSWORD',
+        'PASSWORD':  POSTGRES_PASSWORD,
         'HOST':  '127.0.0.1',
         'PORT':  '5432'
     }
