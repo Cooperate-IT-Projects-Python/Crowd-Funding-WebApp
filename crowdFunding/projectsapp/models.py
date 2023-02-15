@@ -47,6 +47,7 @@ class Projects_pictures(models.Model):
 
 class ProjectReport(models.Model):
     reason = models.TextField(null=False, blank=False)
+    created_at = models.DateField(default=datetime.now, blank=True)
     ProjectId = models.ForeignKey(to="Project", on_delete=models.CASCADE)
     owner_id = models.ForeignKey(to="users.CustomUser", on_delete=models.CASCADE)
 
@@ -56,6 +57,7 @@ class ProjectReport(models.Model):
 
 class Comment(models.Model):
     commentValue = models.TextField(null=False, blank=False)
+    created_at = models.DateField(default=datetime.now, blank=True)
     ProjectId = models.ForeignKey(to="Project", on_delete=models.PROTECT)
     owner_id = models.ForeignKey(to="users.CustomUser", on_delete=models.CASCADE)
 
@@ -65,6 +67,7 @@ class Comment(models.Model):
 
 class CommentReport(models.Model):
     reason = models.TextField(null=False, blank=False)
+    created_at = models.DateField(default=datetime.now, blank=True)
     commentId = models.ForeignKey(to="Comment", on_delete=models.CASCADE)
     owner_id = models.ForeignKey(to="users.CustomUser", on_delete=models.CASCADE)
 
@@ -74,6 +77,7 @@ class CommentReport(models.Model):
 
 class Replay(models.Model):
     replayValue = models.TextField(null=False, blank=False)
+    created_at = models.DateField(default=datetime.now, blank=True)
     commentId = models.ForeignKey(to="Comment", on_delete=models.CASCADE)
     owner_id = models.ForeignKey(to="users.CustomUser", on_delete=models.CASCADE)
 
@@ -83,6 +87,7 @@ class Replay(models.Model):
 
 class ReplayReport(models.Model):
     reason = models.TextField(null=False, blank=False)
+    created_at = models.DateField(default=datetime.now, blank=True)
     replayId = models.ForeignKey(to="Replay", on_delete=models.CASCADE)
     owner_id = models.ForeignKey(to="users.CustomUser", on_delete=models.CASCADE)
 

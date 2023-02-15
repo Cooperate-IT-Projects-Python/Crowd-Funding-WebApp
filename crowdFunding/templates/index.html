@@ -370,7 +370,7 @@
             {% for project in projects %}
             <div class="causes-item">
                 <div class="causes-img">
-                    <a href="single.html">
+                    <a href="{% url 'projectPage' project.id %}">
                         <img src="{{ project.main_Image.url }}" alt="Project image Image">
                     </a>
                 </div>
