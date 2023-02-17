@@ -1,0 +1,29 @@
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Categories</h1>
+    <ul class="list-group">
+      {% for category in categories %}
+        <li class="list-group-item">
+          <a href="{% url 'project_list' category.id %}" class="text-decoration-none text-dark">
+            {{ category.name }}
+          </a>
+        </li>
+      {% empty %}
+        <li class="list-group-item">No categories found.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+
+{% block styles %}
+  <style>
+    .list-group-item {
+      background-color: gold;
+      border-color: gold;
+    }
+    .list-group-item:hover {
+      background-color: #e6b800;
+      border-color: #e6b800;
+    }
+  </style>
+{% endblock %}
