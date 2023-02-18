@@ -54,7 +54,7 @@ class Projects_pictures(models.Model):
 class Tags(models.Model):
     name_tag = models.CharField(max_length=20)
     ProjectId = models.ForeignKey(to="Project", on_delete=models.PROTECT)
-
+    
     def __str__(self):
         return self.name_tag
 
@@ -110,6 +110,16 @@ class ReplayReport(models.Model):
 
 
 class Test2(models.Model):
+    reason = models.TextField(null=False, blank=False)
+    replayId = models.ForeignKey(to="Replay", on_delete=models.CASCADE)
+    owner_id = models.ForeignKey(to="users.CustomUser", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"report {self.id} on replay {self.replayId.id} on comment {self.replayId.commentId.id} on {self.replayId.commentId.ProjectId.title}"
+
+
+
+class Test4(models.Model):
     reason = models.TextField(null=False, blank=False)
     replayId = models.ForeignKey(to="Replay", on_delete=models.CASCADE)
     owner_id = models.ForeignKey(to="users.CustomUser", on_delete=models.CASCADE)
