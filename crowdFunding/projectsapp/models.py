@@ -23,8 +23,15 @@ class Project(models.Model):
     category_id = models.ForeignKey(to="Category", on_delete=models.CASCADE)
     owner_id = models.ForeignKey(to="users.CustomUser", on_delete=models.CASCADE)
 
+    def delete(self):
+        total_percentage = self.total_target * 0.25
+        if self.current_donation >= total_percentage:
+            return 0
+        return 1
+    
     def __str__(self):
         return self.title
+
 
 
 class Projects_pictures(models.Model):
