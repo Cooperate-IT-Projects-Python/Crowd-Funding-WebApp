@@ -14,6 +14,7 @@ from django.core.mail import EmailMessage
 from django.db.models.query_utils import Q
 from .tokens import account_activation_token
 
+
 def register(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -49,7 +50,6 @@ def custom_login(request):
             )
             if user is not None:
                 login(request, user)
-                messages.success(request, f"Hello <b>{user.username}</b>! You have been logged in")
                 return redirect(reverse('home'))
 
         else:
