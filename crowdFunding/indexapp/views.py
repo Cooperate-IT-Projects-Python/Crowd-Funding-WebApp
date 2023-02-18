@@ -12,7 +12,6 @@ User = get_user_model()
 
 
 # Create your views here.
-@login_required
 def index(r):
     # Get New Projects
     projects = Project.objects.all().order_by('-id')[:5]
