@@ -10,30 +10,40 @@ from django.contrib import messages
 
 User = get_user_model()
 
+
 # Create your views here.
+@login_required
 def index(r):
     # Get New Projects
     projects = Project.objects.all().order_by('-id')[:5]
-    # userid = r.session['userId']
-    userid = 3
+    projects_top = Project.objects.all().order_by('-rate')[:5]
+    projects_selected = Project.objects.all().order_by('-selected_at_by_admin')[:5]
+
     for project in projects:
         try:
-            rating = ProjectRating.objects.get(ProjectId=project, owner_id=userid)
-            projects.user_rating = rating.rating if rating else 0
+            rating = ProjectRating.objects.get(ProjectId=project, owner_id=r.user)
+            project.user_rating = rating.rating if rating else 0
         except:
-            projects.user_rating = 0
-    return render(r, "index.html", {'projects': projects})
+            project.user_rating = 0
+    context = {
+        'projects': projects,
+        'projects_top': projects_top,
+        'projects_selected': projects_selected
+    }
+    return render(r, "index.html", context)
 
 
+@login_required
 def rate(r, project_id: int, rating: int):
     # userid = r.session['userId']
-    userid = 3
+    # userid = 3
     project = Project.objects.get(id=project_id)
-    user = CustomUser.objects.get(id=userid)
-    ProjectRating.objects.filter(ProjectId=project, owner_id=user).delete()
-    ProjectRating.objects.create(ProjectId=project, owner_id=user, rating=rating)
+    # user = CustomUser.objects.get(id=userid)
+    ProjectRating.objects.filter(ProjectId=project, owner_id=r.user).delete()
+    ProjectRating.objects.create(ProjectId=project, owner_id=r.user, rating=rating)
+    project.rate = project.average_rating()
+    project.save()
     return index(r)
-
 
 
 @login_required
@@ -47,7 +57,6 @@ def user_profile(request):
         'ratings': ratings
     }
     return render(request, 'user_profile.html', context)
-
 
 
 @login_required
@@ -74,6 +83,7 @@ def edit_user_profile(request):
         }
         return render(request, 'edit_user_profile.html', context)
 
+
 @login_required
 def delete_user_profile(request):
     if request.method == 'POST':
@@ -88,5 +98,7 @@ def delete_user_profile(request):
             return redirect('delete_user_profile')
     else:
         return render(request, 'delete_user_profile.html')
+
+
 def handler404(request, exception):
     return render(request, '404.html', status=404)
