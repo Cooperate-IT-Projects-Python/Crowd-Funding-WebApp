@@ -45,6 +45,14 @@ class Projects_pictures(models.Model):
         return self.ProjectId.title
 
 
+class Tags(models.Model):
+    name_tag = models.CharField(max_length=20)
+    ProjectId = models.ForeignKey(to="Project", on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.name_tag
+
+
 class ProjectReport(models.Model):
     reason = models.TextField(null=False, blank=False)
     created_at = models.DateField(default=datetime.now, blank=True)

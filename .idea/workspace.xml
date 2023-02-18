@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a872ac5b-9ef8-4963-b52c-8f3a9ec6a58c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/betarequirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Crowd-Funding-WebApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Crowd-Funding-WebApp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdFunding/projectsapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdFunding/projectsapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdFunding/projectsapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdFunding/projectsapp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdFunding/projectsapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdFunding/projectsapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdFunding/templates/globalpages/nave.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdFunding/templates/globalpages/nave.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdFunding/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdFunding/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdFunding/templates/single.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdFunding/templates/project_page.html" afterDir="false" />
-    </list>
+    <list default="true" id="7c1e69cd-6592-4320-9f39-0ccc365d078d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,25 +16,25 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2LlEbKy71Q47M4RPYEPHYwjrP0i" />
+  <component name="ProjectId" id="2LmKNWAaehez6LPZuRJwy6ttSGv" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a872ac5b-9ef8-4963-b52c-8f3a9ec6a58c" name="Changes" comment="" />
-      <created>1676437338269</created>
+      <changelist id="7c1e69cd-6592-4320-9f39-0ccc365d078d" name="Changes" comment="" />
+      <created>1676470780945</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1676437338269</updated>
+      <updated>1676470780945</updated>
     </task>
     <servers />
   </component>
