@@ -102,3 +102,4 @@ def report(r, kind, kind_id,project_id):
             ProjectReport.objects.create(reason=r.POST['reason'], ProjectId=projectobj, owner_id=r.user)
         return HttpResponseRedirect("/")
     return render(r, 'report.html')
+#test
