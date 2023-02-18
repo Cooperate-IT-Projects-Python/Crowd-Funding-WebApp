@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import Category, Project, Projects_pictures
+from .models import *
 from users.models import CustomUser
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -67,4 +68,37 @@ def account(request):
 
 
 def project_page(r, project_id):
-    return render(r, 'project_page.html')
+    project = Project.objects.get(id=project_id)
+    return render(r, 'project_page.html', {'project': project})
+
+
+@login_required
+def comment(r):
+    project = Project.objects.get(id=r.POST['project_id'])
+    Comment.objects.create(commentValue=r.POST['commentvalue'], ProjectId=project, owner_id=r.user)
+    return project_page(r,r.POST['project_id'])
+
+
+@login_required
+def replay(r):
+    commentobj = Comment.objects.get(id=r.POST['commentid'])
+    Replay.objects.create(replayValue=r.POST['replayvalue'], commentId=commentobj, owner_id=r.user)
+    return project_page(r,r.POST['project_id'])
+
+
+@login_required
+def report(r, kind, kind_id,project_id):
+    if r.method == 'POST':
+        if kind == "c":
+            commentobj = get_object_or_404(Comment, id=kind_id)
+            CommentReport.objects.create(reason=r.POST['reason'], commentId=commentobj, owner_id=r.user)
+            return project_page(r, project_id)
+        elif kind == "r":
+            Replayobj = get_object_or_404(Replay, id=kind_id)
+            ReplayReport.objects.create(reason=r.POST['reason'], replayId=Replayobj, owner_id=r.user)
+            return project_page(r, project_id)
+        elif kind == "p":
+            projectobj = Project.objects.get(id=kind_id)
+            ProjectReport.objects.create(reason=r.POST['reason'], ProjectId=projectobj, owner_id=r.user)
+        return HttpResponseRedirect("/")
+    return render(r, 'report.html')
