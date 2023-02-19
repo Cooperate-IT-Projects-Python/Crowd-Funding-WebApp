@@ -3,13 +3,15 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from users.models import CustomUser
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
 # Create your views here.
+@login_required
 def projectForm(r):
     if r.method == 'POST':
         # userid = r.session['userId']
-        userid = 3
+        userid = r.user.id
         if userid:
             try:
                 # Create PROJECT
@@ -33,13 +35,14 @@ def projectForm(r):
                     projects_picturesobj.image = image
                     projects_picturesobj.ProjectId = projobject
                     projects_picturesobj.save()
+                    return redirect(reverse('home'))
             except Exception as e:
                 # Replace This  With Flash
                 categories = Category.objects.all()
                 return render(r, 'createProject.html', {'categories': categories, 'error': e})
-        else:
-            # Replace This  With Flash or redirect to loginPage
-            return HttpResponse("You Should Login First")
+        # else:
+        #     # Replace This  With Flash or redirect to loginPage
+        #     return HttpResponse("You Should Login First")
     # If Not Post
     categories = Category.objects.all()
     return render(r, 'createProject.html', {'categories': categories})

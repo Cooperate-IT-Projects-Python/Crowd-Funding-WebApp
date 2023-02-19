@@ -7,30 +7,60 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.db.models import Q
 
 User = get_user_model()
 
 
 # Create your views here.
+# def index(r):
+#     # Get New Projects
+#     projects = Project.objects.all().order_by('-id')[:5]
+#     projects_top = Project.objects.all().order_by('-rate')[:5]
+#     projects_selected = Project.objects.all().order_by('-selected_at_by_admin')[:5]
+
+#     for project in projects:
+#         try:
+#             rating = ProjectRating.objects.get(ProjectId=project, owner_id=r.user)
+#             project.user_rating = rating.rating if rating else 0
+#         except:
+#             project.user_rating = 0
+#     context = {
+#         'projects': projects,
+#         'projects_top': projects_top,
+#         'projects_selected': projects_selected
+#     }
+#     return render(r, "index.html", context)
+
 def index(r):
-    # Get New Projects
-    projects = Project.objects.all().order_by('-id')[:5]
-    projects_top = Project.objects.all().order_by('-rate')[:5]
-    projects_selected = Project.objects.all().order_by('-selected_at_by_admin')[:5]
-
-    for project in projects:
-        try:
-            rating = ProjectRating.objects.get(ProjectId=project, owner_id=r.user)
-            project.user_rating = rating.rating if rating else 0
-        except:
-            project.user_rating = 0
-    context = {
-        'projects': projects,
-        'projects_top': projects_top,
-        'projects_selected': projects_selected
-    }
+    search_post = r.GET.get('search')
+    if search_post:
+        projects = Project.objects.filter(Q(title__icontains=search_post) | Q(details__icontains=search_post))
+        print(projects)
+        if projects:
+            context = {
+            'projects': projects,
+            }
+        else:
+            return render(r, "nosearch.html")    
+            
+    else:
+        projects = Project.objects.all().order_by('-id')[:5]
+        projects_top = Project.objects.all().order_by('-rate')[:5]
+        projects_selected = Project.objects.all().order_by('-selected_at_by_admin')[:5]   
+    # If not searched, return default posts
+        for project in projects:
+            try:
+                rating = ProjectRating.objects.get(ProjectId=project, owner_id=r.user)
+                project.user_rating = rating.rating if rating else 0
+            except:
+                project.user_rating = 0       
+        context = {
+            'projects': projects,
+            'projects_top': projects_top,
+            'projects_selected': projects_selected
+        }
     return render(r, "index.html", context)
-
 
 @login_required
 def rate(r, project_id: int, rating: int):
