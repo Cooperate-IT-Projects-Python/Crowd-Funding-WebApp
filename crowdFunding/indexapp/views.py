@@ -42,6 +42,7 @@ def index(r):
             context = {
                 'projects': projects,
             }
+            return render(r, "search.html", context)
         else:
             return render(r, "nosearch.html")
 
