@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'crowdFunding.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':  'trialcf',
+        'NAME':  'crowd_founding',
         'USER': 'postgres' ,
         'PASSWORD':  POSTGRES_PASSWORD,
         'HOST':  '127.0.0.1',
