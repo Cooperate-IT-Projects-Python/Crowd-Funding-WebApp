@@ -12,7 +12,7 @@ def egNumbers(num):
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(help_text='A valid email address, please.', required=True)
     picture = forms.ImageField(label='Profile picture')
-    mobile = forms.CharField(label="Phone number")
+    mobile = forms.CharField(validators =[egNumbers])
 
     class Meta:
         model = get_user_model()
