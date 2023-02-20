@@ -2,12 +2,21 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,SetPasswordForm,PasswordResetForm
 from django.contrib.auth import get_user_model
 
+
+prefixes = ['010', '011', '012','015']  
+def egNumbers(num):
+    if not num.startswith(tuple(prefixes)) or len(num) != 3:
+        raise forms.ValidationError("Please Enter an Egyptian Number")
+
+
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(help_text='A valid email address, please.', required=True)
+    picture = forms.ImageField(label='Profile picture')
+    mobile = forms.CharField(label="Phone number")
 
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username', 'email','mobile','picture', 'password1', 'password2']
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
