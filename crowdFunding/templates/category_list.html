@@ -1,24 +1,24 @@
 
-<div class="container mt-5">
-  <h1 class="text-center mb-4">Categories</h1>
-  <div class="row">
-    {% for category in categories %}
-    <div class="col-md-6">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">{{ category.name }}</h5>
-          <p class="card-text">Projects: {{ category.project_count }}</p>
-          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#projectModal{{ category.id }}">View Projects</a>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Categories</h1>
+    <div class="row">
+      {% for category in categories %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">{{ category.name }}</h5>
+              <p class="card-text">Projects: {{ category.project_count }}</p>
+              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#projectModal{{ category.id }}">View Projects</a>
+            </div>
+          </div>
         </div>
-      </div>
+      {% empty %}
+        <div class="col-md-12">
+          <p>No categories found.</p>
+        </div>
+      {% endfor %}
     </div>
-    {% empty %}
-    <div class="col-md-12">
-      <p>No categories found.</p>
-    </div>
-    {% endfor %}
   </div>
-</div>
 
 {% for category in categories %}
 <!-- Modal -->
@@ -32,22 +32,32 @@
         </button>
       </div>
       <div class="modal-body">
-        <ul class="list-group">
-          {% for project in category.projects %}
-            <li class="list-group-item" style="background-color:red">Project</li>
-            {% for att in project%}
-              <li class="list-group-item"><a href="#">{{att}}</a></li>
-            {% endfor %}
-
-          {% empty %}
-          <li class="list-group-item">No projects found.</li>
-          {% endfor %}
-        </ul>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="row">
+         {% for project in category.projects %}
+<div class="col-md-6 mb-4">
+  <div class="card" style="background-color: gold;">
+    <div class="card-body">
+      <h5 class="card-title">{{ project.title }}</h5>
+      <p class="card-text">{{ project.details }}</p>
+      <p class="card-text">Total Target: {{ project.total_target }}</p>
+      <p class="card-text">Rate: {{ project.rate }}</p>
+    </div>
   </div>
 </div>
- </div>
+{% empty %}
+<div class="col-md-12">
+  <p>No projects found.</p>
 </div>
 {% endfor %}
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+

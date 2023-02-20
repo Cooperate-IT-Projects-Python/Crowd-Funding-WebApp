@@ -40,30 +40,31 @@ def index(r):
         print(projects)
         if projects:
             context = {
-            'projects': projects,
+                'projects': projects,
             }
         else:
-            return render(r, "nosearch.html")    
-            
+            return render(r, "nosearch.html")
+
     else:
         projects = Project.objects.all().order_by('-id')[:5]
         projects_top = Project.objects.all().order_by('-rate')[:5]
-        projects_selected = Project.objects.all().order_by('-selected_at_by_admin')[:5]   
-    # If not searched, return default posts
+        projects_selected = Project.objects.all().order_by('-selected_at_by_admin')[:5]
+        # If not searched, return default posts
         for project in projects:
             try:
                 rating = ProjectRating.objects.get(ProjectId=project, owner_id=r.user)
                 project.user_rating = rating.rating if rating else 0
             except:
-                project.user_rating = 0       
+                project.user_rating = 0
         context = {
             'projects': projects,
             'projects_top': projects_top,
             'projects_selected': projects_selected,
         }
-        context['categories']=category_list(r)
+        context['categories'] = category_list(r)
 
     return render(r, "index.html", context)
+
 
 @login_required
 def rate(r, project_id: int, rating: int):
@@ -130,6 +131,8 @@ def delete_user_profile(request):
             return redirect('delete_user_profile')
     else:
         return render(request, 'delete_user_profile.html')
+
+
 @login_required
 def delete_project(request, project_id):
     try:
@@ -145,7 +148,6 @@ def delete_project(request, project_id):
     return redirect('user_profile')
 
 
-
 def category_list(request):
     cursor = connection.cursor()
     cursor.execute('''SELECT public.projectsapp_category.id, projectsapp_category.name, count(projectsapp_project.id) as project_count 
@@ -158,24 +160,36 @@ def category_list(request):
     context = {'categories': []}
     for category in categories:
         cursor = connection.cursor()
-        cursor.execute('''SELECT id,total_target,rate,title FROM public.projectsapp_project WHERE category_id_id=%s''', [category[0]])
+        cursor.execute(
+            '''SELECT id, title, details, rate, total_target, current_donation, start_campaign, end_campaign FROM public.projectsapp_project WHERE category_id_id=%s''',[category[0]])
         projects = cursor.fetchall()
+
         cursor.close()
         context['categories'].append({
             'id': category[0],
             'name': category[1],
             'project_count': category[2],
-            'projects': projects,
+            'projects': [{
+                'id': project[0],
+                'title': project[1],
+                'details': project[2],
+                'rate': project[3],
+                'total_target': project[4],
+                'current_donation': project[5],
+                'start_campaign': project[6],
+                'end_campaign': project[7],
+
+            } for project in projects],
         })
+
     return context['categories']
     # return render(request, 'category_list.html', context)
-
-
 
 
 def project_details(request, pk):
     project = get_object_or_404(Project, pk=pk)
     return render(request, 'project_details.html', {'project': project})
+
 
 def handler404(request, exception):
     return render(request, '404.html', status=404)
