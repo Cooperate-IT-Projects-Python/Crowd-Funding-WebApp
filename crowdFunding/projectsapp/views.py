@@ -4,6 +4,7 @@ from .models import *
 from users.models import CustomUser
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.contrib import messages
 
 
 # Create your views here.
@@ -57,6 +58,8 @@ def make_donation(r, project_id):
             project = get_object_or_404(Project, id=project_id)
             project.current_donation += int(r.POST['donation'])
             project.save()
+            messages.success(r, "Thank you for your donation!")
+            return redirect(reverse('home'))
         else:
             # Replace This  With Flash or redirect to loginPage
             return HttpResponse("You Should Login First")

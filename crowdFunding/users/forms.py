@@ -5,13 +5,12 @@ from django.contrib.auth import get_user_model
 
 prefixes = ['010', '011', '012','015']  
 def egNumbers(num):
-    if not num.startswith(tuple(prefixes)) or len(num) != 3:
+    if not num.startswith(tuple(prefixes)) or len(num) != 11:
         raise forms.ValidationError("Please Enter an Egyptian Number")
 
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(help_text='A valid email address, please.', required=True)
-    picture = forms.ImageField(label='Profile picture')
     mobile = forms.CharField(validators =[egNumbers])
 
     class Meta:

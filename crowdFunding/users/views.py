@@ -17,7 +17,7 @@ from .tokens import account_activation_token
 
 def register(request):
     if request.method == "POST":
-        form = UserRegistrationForm(request.POST)
+        form = UserRegistrationForm(request.POST,request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
